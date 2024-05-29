@@ -1,11 +1,11 @@
 def select_action():
     print("What would you like to do?")
-    print("A: see product catalogue. \nB: create a new product. \nC: update an existing product. \nD: delete an existing product. \nE: add products to your inventory. \nF: display current inventory. \nG: display inventory value.")
+    print("A: see product catalogue. \nB: create a new product. \nC: update an existing product. \nD: delete an existing product. \nE: add products to your inventory. \nF: display current inventory. \nG: display inventory value. \nQ: quit the program.")
     user_choice = (input("Please enter a letter.")).lower()
     # validate user input?
-    if user_choice in ['a', 'b', 'c', 'd', 'e', 'f', 'g']:
+    if user_choice in ['a', 'b', 'c', 'd', 'e', 'f', 'g','q']:
         return user_choice
-    print("Invalid input. Please enter a letter from A to G to select your next action.")
+    print("Invalid input. Please enter a valid letter from the menup to select your next action.")
     # perform action here or somewhere else?
 
 
