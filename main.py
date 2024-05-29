@@ -9,23 +9,21 @@
 # Create at least two plots: one for inventory levels and another for the value of the inventory.
 # Develop a custom library to handle inventory operations.
 # Write at least 40 lines of code.
-from classes import product, inventory
+from classes.inventory import Inventory
+from utils import select_action, execute_action
+
+my_inventory = Inventory()
+
+def main():
+    while True:
+        choice = select_action()
+        if choice ==  'q':
+            break
+        execute_action(my_inventory, choice)
+
+if __name__ == '__main__':
+    main()
 
 
-
-
-# inventory = [
-# {
-#     "name": "apple",
-#     "quantity": 10,
-#     "price": 2
-
-# },
-# {
-#         "name": "pear",
-#     "quantity": 10,
-#     "price": 3
-# }
-# ]
 
 

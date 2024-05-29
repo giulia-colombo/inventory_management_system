@@ -2,7 +2,7 @@ from product import Product
 from utils import select_action
 
 class Inventory:
-    def __init__(self):
+    def __init__(self, name):
         ## list (of Product instances)
         self.product_catalog = []
         ## dictionary of dictionaries. houses the actual current quantity of all the products
@@ -33,15 +33,15 @@ class Inventory:
                 except ValueError:
                     print("Invalid price. Please enter a number.")
 
-        # create a product (SKU) for the product catalogue 
+        # create a product (SKU) for the product catalog 
         new_product = Product(product_name, unit_price)
-        # append product to product catalogue.
+        # append product to product catalog.
         self.product_catalog.append(new_product)
         # display success message
-        print(f"Product {product_name} with unit price {unit_price} has been successfully added to product catalogue.")
+        print(f"Product {product_name} with unit price {unit_price} has been successfully added to product catalog.")
         return new_product
 
-     def find_product(self, product_name):
+     def find_product(self):
         # given a name (user input), check if the object exists
         product_name = input("Please insert the product name to look for it.").lower()
         # loop through the list of Product instances to check every single one.
@@ -111,7 +111,7 @@ class Inventory:
 
     # OPTIONAL update_product_quantity
 
-    # delete_product - #REVIEW from catalogue or inventory??? or both? 
+    # delete_product - #REVIEW from catalog or inventory??? or both? 
     def delete_product_catalog(self):
         product_to_delete = input("Please enter the name of the product you would like to delete from the catalog.").lower()
         product_object_to_delete = self.find_product(product_to_delete)
@@ -145,7 +145,7 @@ class Inventory:
             elif reply == 'no':
                 print(f"Product {product_to_delete} has not been removed from inventory.")
     
-    def print_product_catalogue(self):
+    def print_product_catalog(self):
         # loop through product catalog to print all the items 
         number_of_products = len(self.product_catalog)
         print(f"There are currently {number_of_products} product(s) in the catalog.")
