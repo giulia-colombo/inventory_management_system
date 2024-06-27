@@ -3,12 +3,12 @@
 def select_action():
     '''Displays a menu of actions for the user and gets a valid choice from user.'''
     print("What would you like to do?")
-    print("A: see product catalog. \nB: create a new product. \nC: delete an existing product from catalog.  \nD: add products to your inventory. \nE: delete an existing product from inventory.\nF: display current inventory. \nG: display inventory value. \nQ: quit the program.")
+    print("A: see product catalog. \nB: create a new product. \nC: delete an existing product from catalog.  \nD: add products to your inventory. \nE: delete an existing product from inventory.\nF: display current inventory. \nG: display inventory value. \nH: print current inventory. \nQ: quit the program.")
 
     while True:
-        choice = (input("Please enter a letter.")).lower()
+        choice = (input("Please enter a letter.\n")).lower()
     # validate user input?
-        if choice in ['a', 'b', 'c', 'd', 'e', 'f', 'g','q']:
+        if choice in ['a', 'b', 'c', 'd', 'e', 'f', 'g','h','q']:
             return choice
         else:
             print("Invalid input. Please enter a valid letter from the menup to select your next action.")
@@ -30,6 +30,8 @@ def execute_action(inventory, choice):
             inventory.delete_product_inventory()
         case 'f':
             inventory.display_inventory_levels()
+        case 'h':
+            inventory.print_inventory()
         case 'q':
             print('Quitting the program.')
             exit()
