@@ -71,32 +71,37 @@ class Inventory:
             try:
                 # OPTIONAL add also the case for decreasing the quantity
                 additional_quantity = int(input("Please insert the product quantity to add it to the inventory.\n\n"))
+                if additional_quantity <= 0:
+                    raise ValueError("Quantity must be a positive integer.")
+                break
             except ValueError:
                 print("Please enter a positive integer number.\n\n")
                 continue
         
             # Check if the product is already in inventory:
             # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
-            for product in self.inventory:
-                if found_product.name == product['name']:
-                    # if it is, increase the inventory level
-                    product['quantity'] += additional_quantity
-                    # if it is, update the inventory value for that product
-                    product['value'] = product['quantity'] * found_product.price
-                    print(f"Added {additional_quantity} additional unit(s) of {product['name']}. \nTotal quantity is now {product['quantity']} for a total value of {product['value']}")
-                
-            # if it is not, create new product
+        for product in self.inventory:
+            if found_product.name == product['name']:
+                # if it is, increase the inventory level
+                product['quantity'] += additional_quantity
+                # if it is, update the inventory value for that product
+                product['value'] = product['quantity'] * found_product.price
+                print(f"Added {additional_quantity} additional unit(s) of {product['name']}. \nTotal quantity is now {product['quantity']} for a total value of {product['value']}")
+                break
+           
+        # if it is not, create new product
+        else:
             added_product =  {
             "name": found_product.name,        
             "price": found_product.price,
             "quantity": additional_quantity,
             "value": additional_quantity * found_product.price
         }
-            self.inventory.append(added_product)   
-                     
+            self.inventory.append(added_product)
             # print success message
-            print(f"{additional_quantity} unit(s) of product '{found_product.name}' successfully added to inventory.\n\n")
-            break
+            print(f"{additional_quantity} unit(s) of product '{found_product.name}' successfully added to inventory.\n\n") 
+                
+                    
 
     # # OPTIONAL update_product. ALSO this should go in Product class
     # def update_product(self, name, price = None):
@@ -121,8 +126,12 @@ class Inventory:
 
     # delete_product - #REVIEW from catalog or inventory??? or both? 
     def delete_product_catalog(self):
-        product_to_delete = input("Please enter the name of the product you would like to delete from the catalog.\n\n").lower()
-        product_object_to_delete = self.find_product(product_to_delete)
+        print("In order to delete a product, please look for it first.")
+        
+        # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
+        found_product = self.find_product()
+        if not found_product:
+            print("This product does not exists in the catalog. Please enter the name of an existing product.\n\n")
 
         if product_object_to_delete:
             print(f"Product with name '{product_to_delete}' is about to be deleted. This action cannot be undone. Proceed?\n\n")
@@ -168,8 +177,9 @@ class Inventory:
             print(f"Product: {product['name']} - Quantity: {product['quantity']} - Value: {product['value']} \n -----------\n")
 
 
+# TO DO
     # def display_inventory_levels(self):
     #     # display current inventory levels (amount of every product)
-
+# TO DO
     # def display_inventory_value(self):
     #     # display current inventory value (unit price * quantity per product)
