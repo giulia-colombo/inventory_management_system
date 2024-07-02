@@ -124,25 +124,27 @@ class Inventory:
 
     # # OPTIONAL update_product_quantity
 
-    # delete_product - #REVIEW from catalog or inventory??? or both? 
     def delete_product_catalog(self):
-        print("In order to delete a product, please look for it first.")
-        
-        # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
-        found_product = self.find_product()
-        if not found_product:
-            print("This product does not exists in the catalog. Please enter the name of an existing product.\n\n")
 
-        if product_object_to_delete:
-            print(f"Product with name '{product_to_delete}' is about to be deleted. This action cannot be undone. Proceed?\n\n")
-            reply = input("Please enter yes or no.\n\n").lower()
-            if reply == "yes":
-                self.product_catalog.remove(product_object_to_delete)
-                print("Product successfully deleted.\n\n")
+
+        while True:
+            print("In order to delete a product, please look for it first.") 
+        # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
+            found_product = self.find_product()
+            if found_product:
+                print(f"Product with name '{found_product.name}' is about to be deleted. This action cannot be undone. Proceed?\n\n")
+                reply = input("Please enter yes or no.\n\n").lower()
+                if reply == "yes":
+                    self.product_catalog.remove(found_product)
+                    print(f"Product {found_product.name} successfully deleted from catalog.\n\n")
+                    break
+                elif reply == 'no':
+                    print(f"Product '{found_product.name}' has not been deleted from catalog.\n\n")
+                    break
+                else:
+                    print("Please enter 'yes' or 'no'.")
             else:
-                print(f"Product '{product_to_delete}' has not been deleted.\n\n")
-        else:
-            print(f"Product {product_to_delete} not found in catalog.\n\n")
+                print("This product does not exist in the catalog. Please enter the name of an existing product.\n\n")
 
     def delete_product_inventory(self):
         # ask for product name
@@ -174,7 +176,7 @@ class Inventory:
         # loop through self.inventory to print the inventory levels for each product.
         # format each items for readibility
         for product in self.inventory:
-            print(f"Product: {product['name']} - Quantity: {product['quantity']} - Value: {product['value']} \n -----------\n")
+            print(f"Product: {product['name'].capitalize()} - Quantity: {product['quantity']} - Value: {product['value']} \n -----------\n")
 
 
 # TO DO
