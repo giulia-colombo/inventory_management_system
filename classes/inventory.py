@@ -148,29 +148,26 @@ class Inventory:
 
     def delete_product_inventory(self):
         '''Removes a product from the inventory'''
-        while True:
-            print("In order to delete a product from the inventory, please look for it first.") 
-            # Find product in catalog
-            # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
-            found_product = self.find_product()
-            if found_product:
-                print(f"Product with name '{found_product.name}' is about to be deleted from the inventory. This action cannot be undone. Proceed?\n\n")
-                reply = input("Please enter yes or no.\n\n").lower()
-                if reply == "yes":
-                    for index, product in enumerate(self.inventory):
-                            if product['name'] == found_product.name:
-                                del self.inventory[index]
-                                break
-                            # display success message
-                            print(f"Product with name {found_product.name} has been successfully removed from the inventory.")
-                            break
-                elif reply == 'no':
-                    print(f"Product '{found_product.name}' has not been deleted from the inventory.\n\n")
-                    break
-                else:
-                    print("Please enter 'yes' or 'no'.")
-            else:
-                print("This product does not exist in the catalog. Please enter the name of an existing product.\n\n")
+        print("In order to delete a product from the inventory, please look for it first.") 
+        # Find product in catalog
+        # found_product is an object (a Product instance) -- product is a dictionary (in a list of dictionaries)
+        found_product = self.find_product()
+        if found_product:
+            print(f"Product with name '{found_product.name}' is about to be deleted from the inventory. This action cannot be undone. Proceed?\n\n")
+            reply = input("Please enter yes or no.\n\n").lower()
+            while reply != "yes" and reply != "no":
+                reply = input("Please enter 'yes' or 'no'.")
+            if reply == "yes":
+                for index, product in enumerate(self.inventory):
+                    if product['name'] == found_product.name:
+                        del self.inventory[index]
+                        # display success message
+                        print(f"Product with name {found_product.name} has been successfully removed from the inventory.")    
+                        break
+            elif reply == 'no':
+                print(f"Product '{found_product.name}' has not been deleted from the inventory.\n\n")
+        else:
+            print("This product does not exist in the catalog. Please enter the name of an existing product.\n\n")
     
     def print_product_catalog(self):
         # loop through product catalog to print all the items 
@@ -183,6 +180,8 @@ class Inventory:
     def print_inventory(self):
         # loop through self.inventory to print the inventory levels for each product.
         # format each items for readibility
+        number_of_products = len(self.inventory)
+        print(f"There are currently {number_of_products}(s) in the inventory.")
         for product in self.inventory:
             print(f"Product: {product['name'].capitalize()} - Quantity: {product['quantity']} - Value: {product['value']} \n -----------\n")
 
