@@ -1,7 +1,7 @@
 from classes.product import Product
 from utils import select_action
-# import matplotlib as plt
-# import numpy as np
+import matplotlib as plt
+import numpy as np
 
 
 class Inventory:
@@ -186,9 +186,29 @@ class Inventory:
             print(f"Product: {product['name'].capitalize()} - Quantity: {product['quantity']} - Value: {product['value']} \n -----------\n")
 
 
-# TO DO
-    # def display_inventory_levels(self):
-    #     # display current inventory levels (amount of every product)
+# REVIEW: possible helper function
+    def bar_chart_plotter(ax, data1, data2, param_dict):
+        out = ax.plot(data1, data2, **param_dict)
+        return out
+
+    def display_inventory_levels(self):
+        '''Creates and displays a bar chart with current inventory levels (amount for every product)'''
+        # get the name of the product and its quantity from self.inventory in a way that is usable
+        # create a list for group_data
+        group_data = []
+        # create a list for group_names
+        group_names = []
+        # loop through self.inventory and for each product:
+        for product in self.inventory:
+            # get the name of a product, put it into a list
+            group_data.append(product['quantity'])
+            # get the amount of a product, put it into another list
+            group_names.append(product['name'])
+        # display the data as bar chart
+        fig, ax = plt.subplots()
+
+
+
 # TO DO
     # def display_inventory_value(self):
     #     # display current inventory value (unit price * quantity per product)
